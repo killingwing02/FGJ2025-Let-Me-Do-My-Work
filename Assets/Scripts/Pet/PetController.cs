@@ -4,7 +4,21 @@ using UnityEngine;
 
 public class PetController : MonoBehaviour
 {
+    [SerializeField] BehaviorController behaviorController;
+    [SerializeField] float speed;
+    [SerializeField] GameObject testTarget;
 
+    private void Awake()
+    {
+        behaviorController = GetComponent<BehaviorController>();
+        behaviorController.Init(speed);
+    }
+
+    private void Start()
+    {
+        behaviorController.SetChasingTarget(testTarget);
+        behaviorController.ChangeBehavior(new ChaseBehavior());
+    }
 }
 
 public enum PetState
