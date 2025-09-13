@@ -1,5 +1,5 @@
 
-public class Bite : PetBehavior
+public class BiteBehavior : PetBehavior
 {
     public override PetState State { get { return PetState.Bite; } }
 
