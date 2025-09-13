@@ -8,10 +8,13 @@ using UnityEngine;
 public class BehaviorController : MonoBehaviour
 {
     [SerializeField] float gotTargetDistance;
+    [SerializeField] float nextMoveTime;
+    [SerializeField] float nextMoveRandomThreshold;
 
     private float _speed;
 
     GameObject chaseTarget;
+    Vector2 targetPosition;
     Animator animator;
 
     #region Init
@@ -73,6 +76,26 @@ public class BehaviorController : MonoBehaviour
         }
     }
 
+    public void WalkToPosition()
+    {
+        var _x = Random.Range(-8f, 8f);
+        var _y = Random.Range(-4f, 4f);
+        var _pos = new Vector2(_x, _y);
+
+        var distance = Vector2.Distance(transform.position, _pos);
+        var duration = distance / _speed;
+
+        float toY = 0f;
+
+        if (_x > transform.position.x) // Need flip Y axis
+            toY = 180f;
+        else
+            toY = 0f;
+
+        LeanTween.rotateY(gameObject, toY, .3f);
+
+        LeanTween.move(gameObject, _pos, duration).setOnComplete(() => ChangeBehavior(new IdleBehavior()));
+    }
 
     public void Bite()
     {
@@ -92,6 +115,13 @@ public class BehaviorController : MonoBehaviour
         chaseTarget.GetComponent<IBiteable>().ThrowAway();
         chaseTarget = null;
         ChangeBehavior(new IdleBehavior());
+    }
+
+    public void RandomNextMove()
+    {
+        var delayTime = Random.Range(nextMoveTime - nextMoveRandomThreshold, nextMoveTime + nextMoveRandomThreshold);
+
+        LeanTween.delayedCall(delayTime, () => ChangeBehavior(new WalkBehavior()));
     }
 
     public void PlayAnimation(string animationName)

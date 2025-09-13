@@ -331,6 +331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gotTargetDistance: 0.5
+  nextMoveTime: 8
+  nextMoveRandomThreshold: 3
 --- !u!114 &1010918859
 MonoBehaviour:
   m_ObjectHideFlags: 0
