@@ -8,7 +8,7 @@ public class Puzzle : MonoBehaviour
     public GameObject[] puzzlePrefabs;
 
     [Header("GenerateNumber")]
-    public int puzzleCount = 3;
+    public int puzzleCount;
 
     [Header("puzzle_RandomGenerate")]
     public Transform topLeft;
@@ -16,10 +16,16 @@ public class Puzzle : MonoBehaviour
     public Transform bottomLeft;
     public Transform bottomRight;
 
-    
+    public static Puzzle Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
+        PuzzleManager.Instance.totalPieces = puzzleCount;
         SpawnThreeUniquePuzzles();
     }
 
