@@ -47,9 +47,12 @@ TagManager:
   - name: BG
     uniqueID: 2053690499
     locked: 0
+  - name: window
+    uniqueID: 3682626977
+    locked: 0
   - name: grid_puzzle
     uniqueID: 2695304981
     locked: 0
-  - name: homework
-    uniqueID: 3682626977
+  - name: food
+    uniqueID: 2206702325
     locked: 0
