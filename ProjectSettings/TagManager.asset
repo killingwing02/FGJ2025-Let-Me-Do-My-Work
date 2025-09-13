@@ -11,6 +11,7 @@ TagManager:
   - puzzle5
   - puzzle6
   - puzzle7
+  - food
   layers:
   - Default
   - TransparentFX

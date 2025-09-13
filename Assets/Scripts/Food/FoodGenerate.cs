@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FoodGenerate : MonoBehaviour
 {
@@ -14,35 +15,41 @@ public class FoodGenerate : MonoBehaviour
     public Transform left;
     public Transform right;
 
-    private void Start()
-    {
-        SpawnFood();
-    }
-    void SpawnFood()
-    {
-        List<int> usedIndexes = new List<int>();
+    [Header("Throw Settings")]
+    public float throwForce = 400f; 
 
-        for (int i = 0; i < 3; i++)
+
+    public void SpawnFood()
+    {
+        for (int i = 0; i < foodCount; i++)
         {
-            int randomIndex;
-            do
-            {
-                randomIndex = Random.Range(0, foodPrefabs.Length);
-            } while (usedIndexes.Contains(randomIndex));
-
-            usedIndexes.Add(randomIndex);
-
             Vector3 spawnPos = GetRandomPositionInArea();
-            Instantiate(foodPrefabs[randomIndex], spawnPos, Quaternion.identity);
-        }
+            GameObject food = Instantiate(GetRandomFood(), spawnPos, Quaternion.identity);
 
-        Vector3 GetRandomPositionInArea()
-        {
-            float minX=left.position.x;
-            float maxX=right.position.x;
-
-            float randomFood=Random.Range(minX, maxX);
-            return new Vector3(randomFood, 0f);
+            // 丟出：加力往上
+            Rigidbody2D rb = food.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.AddForce(Vector2.up * throwForce);
+            }
+            else
+            {
+                Debug.LogWarning("Prefab 沒有 Rigidbody2D，無法丟出！");
+            }
         }
+    }
+
+    GameObject GetRandomFood()
+    {
+        int index = Random.Range(0, foodPrefabs.Length);
+        return foodPrefabs[index];
+    }
+    Vector3 GetRandomPositionInArea()
+    {
+        float minX = Mathf.Min(left.position.x, right.position.x);
+        float maxX = Mathf.Max(left.position.x, right.position.x);
+        float randomX = Random.Range(minX, maxX);
+        float y = left.position.y; // 固定 Y 軸高度
+        return new Vector3(randomX, y, 0f);
     }
 }
