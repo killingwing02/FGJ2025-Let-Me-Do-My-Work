@@ -12,11 +12,17 @@ public class BehaviorController : MonoBehaviour
     private float _speed;
 
     GameObject chaseTarget;
+    Animator animator;
 
     #region Init
     public void Init(float speed)
     {
         _speed = speed;
+    }
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
     }
     #endregion
 
@@ -33,11 +39,12 @@ public class BehaviorController : MonoBehaviour
         return currentBehavior is BehaviorType;
     }
 
-    public void ChangeBehavior(PetBehavior newBehavior)
+    public void ChangeBehavior(PetBehavior newBehavior, bool playAnimation = true)
     {
         currentBehavior?.OnBehaviorExit();
         currentBehavior = newBehavior;
         currentBehavior.OnBehaviorEnter(this);
+        if (playAnimation) PlayAnimation(currentBehavior.State.ToString());
     }
     #endregion
 
@@ -62,7 +69,35 @@ public class BehaviorController : MonoBehaviour
         {
             // TODO: Bite!
             Debug.Log($"Pet catched {chaseTarget.name}!");
+            ChangeBehavior(new BiteBehavior());
         }
     }
+
+
+    public void Bite()
+    {
+        var biteable = chaseTarget.GetComponent<IBiteable>();
+        if (biteable == null)
+        {
+            Debug.LogWarning($"Chasing item \"{chaseTarget.name}\" can't bite!");
+            ChangeBehavior(new IdleBehavior());
+            return;
+        }
+        biteable.GotBite();
+        LeanTween.delayedCall(1f, () => { ChangeBehavior(new ThrowBehavior()); });
+    }
+
+    public void Throw()
+    {
+        chaseTarget.GetComponent<IBiteable>().ThrowAway();
+        chaseTarget = null;
+        ChangeBehavior(new IdleBehavior());
+    }
+
+    public void PlayAnimation(string animationName)
+    {
+        animator.Play(animationName);
+    }
+
     #endregion
 }
