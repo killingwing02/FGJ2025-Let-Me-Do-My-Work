@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8729902467811243420}
   - component: {fileID: -6146348194058998383}
   - component: {fileID: 4302816605118414035}
-  - component: {fileID: 6378785802809700394}
   - component: {fileID: -2718211945860309900}
   m_Layer: 6
   m_Name: puzzle1
@@ -160,18 +159,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6378785802809700394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9032571761261824483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 774e24d7e1537f646a61c3bb255eae60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-2718211945860309900
 MonoBehaviour:
   m_ObjectHideFlags: 0

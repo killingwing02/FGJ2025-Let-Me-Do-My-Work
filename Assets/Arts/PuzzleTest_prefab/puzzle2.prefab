@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1221576302622928543}
   - component: {fileID: 773393625869856583}
   - component: {fileID: 8258137985185393591}
-  - component: {fileID: 6382088798710018951}
   - component: {fileID: -1436143867239084682}
   m_Layer: 6
   m_Name: puzzle2
@@ -163,18 +162,6 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!114 &6382088798710018951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4939954302354533979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 774e24d7e1537f646a61c3bb255eae60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1436143867239084682
 MonoBehaviour:
   m_ObjectHideFlags: 0

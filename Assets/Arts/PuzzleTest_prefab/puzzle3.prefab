@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7496446617886957837}
   - component: {fileID: 7653735082685684705}
   - component: {fileID: 4422116034302493131}
-  - component: {fileID: 3558494991626766058}
   - component: {fileID: -3648204381295363090}
   m_Layer: 6
   m_Name: puzzle3
@@ -150,18 +149,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &3558494991626766058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3103219931744527101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 774e24d7e1537f646a61c3bb255eae60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-3648204381295363090
 MonoBehaviour:
   m_ObjectHideFlags: 0
