@@ -27,7 +27,7 @@ public class Puzzle : MonoBehaviour
     {
         List<int> usedIndexes = new List<int>();
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 7; i++)
         {
             int randomIndex;
             do

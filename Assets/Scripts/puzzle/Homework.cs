@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Homework : MonoBehaviour
 {
+    [Header("TargetRotate")]
+    public Transform targetR;
+
     [Header("Snap")]
     public bool isStuck = false;
     public bool canDrag = true;
@@ -15,6 +18,7 @@ public class Homework : MonoBehaviour
 
         if (collision.gameObject.CompareTag(this.tag))
         {
+            targetR = collision.transform;
             Snapping(collision.transform);
             Debug.Log("snap");
         }
@@ -37,6 +41,9 @@ public class Homework : MonoBehaviour
         // snapping animation
         LeanTween.move(gameObject, target.position, 0.3f).setEase(LeanTweenType.easeOutQuad).setOnComplete(() => { Debug.Log("snapAnimation"); });
         StartCoroutine(SetParentAfterDelay(target, 0.3f));
+
+        //no rotate
+        transform.rotation = targetR.rotation;
     }
 
 
