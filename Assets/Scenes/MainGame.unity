@@ -558,7 +558,6 @@ GameObject:
   m_Component:
   - component: {fileID: 357596743}
   - component: {fileID: 357596742}
-  - component: {fileID: 357596744}
   - component: {fileID: 357596746}
   m_Layer: 0
   m_Name: GameManager
@@ -603,23 +602,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &357596744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357596741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decf7c7b53107d54ba399ce4496517a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPrefabs:
-  - {fileID: 7393321727804483176, guid: bf009e6cbdd13784aa2490a1835db672, type: 3}
-  foodCount: 3
-  left: {fileID: 405359183}
-  right: {fileID: 1037082001}
 --- !u!114 &357596746
 MonoBehaviour:
   m_ObjectHideFlags: 0
