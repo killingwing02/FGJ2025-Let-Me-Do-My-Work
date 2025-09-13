@@ -51,7 +51,7 @@ public class Puzzle : MonoBehaviour
             float randomX = Random.Range(minX, maxX);
             float randomY = Random.Range(minY, maxY);
 
-            return new Vector3(randomX, randomY, 0f); // 保持在 2D 平面
+            return new Vector3(randomX, randomY, 0f); // stay in 2D
         }
     }
     

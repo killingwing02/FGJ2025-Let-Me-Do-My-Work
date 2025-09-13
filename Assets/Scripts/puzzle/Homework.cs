@@ -40,7 +40,7 @@ public class Homework : MonoBehaviour
     }
 
 
-    //·Æ¹«©ì¦²
+    //mouse drag
     void OnMouseDrag()
     {
         if (!isStuck && canDrag)
