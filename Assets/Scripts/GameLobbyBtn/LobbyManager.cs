@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,5 +26,6 @@ public class LobbyManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+        EditorApplication.isPlaying = false;
     }
 }
