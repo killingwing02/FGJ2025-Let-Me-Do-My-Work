@@ -3,18 +3,29 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BehaviorController : MonoBehaviour
 {
+    [Header("Moving Settings")]
     [SerializeField] float gotTargetDistance;
     [SerializeField] float nextMoveTime;
     [SerializeField] float nextMoveRandomThreshold;
+
+    [Header("Eating Settings")]
+    [SerializeField] float eatingDuration;
+
+    [Header("Throwing Settings")]
+    [SerializeField] float throwingDuration;
 
     private float _speed;
 
     GameObject chaseTarget;
     Animator animator;
+    Queue<GameObject> foodsQueue;
+    //Queue<PetBehavior> behaviorsQueue;
+    List<IBiteable> biteables;
 
     #region Init
     public void Init(float speed)
@@ -22,9 +33,17 @@ public class BehaviorController : MonoBehaviour
         _speed = speed;
     }
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
+        foodsQueue = new Queue<GameObject>();
+        //behaviorsQueue = new Queue<PetBehavior>();
+        biteables = new List<IBiteable>();
+    }
+
+    private void Start()
+    {
+        biteables = FindObjectsOfType<MonoBehaviour>().OfType<IBiteable>().ToList();
     }
     #endregion
 
@@ -43,6 +62,17 @@ public class BehaviorController : MonoBehaviour
 
     public void ChangeBehavior(PetBehavior newBehavior, bool playAnimation = true)
     {
+        //if (currentBehavior != null & !currentBehavior.CanTransition())
+        //{
+        //    behaviorsQueue.Enqueue(newBehavior);
+        //    return;
+        //}
+
+        //if (behaviorsQueue.Count > 0)
+        //{
+
+        //}
+
         currentBehavior?.OnBehaviorExit();
         currentBehavior = newBehavior;
         currentBehavior.OnBehaviorEnter(this);
@@ -58,14 +88,14 @@ public class BehaviorController : MonoBehaviour
 
     public void ChasingTarget()
     {
-        if (chaseTarget ==  null)
+        if (chaseTarget == null)
         {
             Debug.LogWarning("Chasing target is not defined.");
             return;
         }
 
         // Moving forward to the target
-        transform.position += (chaseTarget.transform.position - transform.position).normalized * Time.deltaTime;
+        transform.position += _speed * Time.deltaTime * (chaseTarget.transform.position - transform.position).normalized;
         // Check if target is near enough
         if (Vector2.Distance(transform.position, chaseTarget.transform.position) < gotTargetDistance)
         {
@@ -73,6 +103,11 @@ public class BehaviorController : MonoBehaviour
             Debug.Log($"Pet catched {chaseTarget.name}!");
             ChangeBehavior(new BiteBehavior(), false);
         }
+    }
+
+    public void PetFacingWhenChasing()
+    {
+        FlipCheck(chaseTarget.transform.position.x);
     }
 
     public void WalkToPosition()
@@ -84,6 +119,12 @@ public class BehaviorController : MonoBehaviour
         var distance = Vector2.Distance(transform.position, _pos);
         var duration = distance / _speed;
 
+        FlipCheck(_x);
+        LeanTween.move(gameObject, _pos, duration).setOnComplete(() => ChangeBehavior(new IdleBehavior()));
+    }
+
+    private void FlipCheck(float _x)
+    {
         float toY = 0f;
 
         if (_x > transform.position.x) // Need flip Y axis
@@ -92,8 +133,6 @@ public class BehaviorController : MonoBehaviour
             toY = 0f;
 
         LeanTween.rotateY(gameObject, toY, .3f);
-
-        LeanTween.move(gameObject, _pos, duration).setOnComplete(() => ChangeBehavior(new IdleBehavior()));
     }
 
     public void Bite()
@@ -105,27 +144,72 @@ public class BehaviorController : MonoBehaviour
             ChangeBehavior(new IdleBehavior());
             return;
         }
+
+        float delayDuration = throwingDuration;
+        PetBehavior nextBehavior = new ThrowBehavior();
+
+        if (chaseTarget.CompareTag("food"))
+        {
+            PlayAnimation("Eating");
+            delayDuration = eatingDuration;
+        }
+        else
+        {
+            PlayAnimation("Bite");
+        }
+
         biteable.GotBite();
-        LeanTween.delayedCall(1f, () => { ChangeBehavior(new ThrowBehavior()); });
+        Debug.Log($"{chaseTarget.name} got bite!");
+
+        if (foodsQueue.Count > 0)
+        {
+            chaseTarget = foodsQueue.Dequeue();
+            nextBehavior = new ChaseBehavior();
+        }
+
+        LeanTween.delayedCall(delayDuration, () => { ChangeBehavior(nextBehavior); });
     }
 
     public void Throw()
     {
         chaseTarget.GetComponent<IBiteable>().ThrowAway();
         chaseTarget = null;
-        ChangeBehavior(new IdleBehavior());
+        LeanTween.delayedCall(1f, () => ChangeBehavior(new IdleBehavior()));
     }
 
     public void RandomNextMove()
     {
+        var nextMoveIndex = Random.Range(0, 4);
         var delayTime = Random.Range(nextMoveTime - nextMoveRandomThreshold, nextMoveTime + nextMoveRandomThreshold);
+        PetBehavior nextBehavior = new IdleBehavior();
 
-        LeanTween.delayedCall(delayTime, () => ChangeBehavior(new WalkBehavior()));
+        switch ((PetState)nextMoveIndex)
+        {
+            case PetState.Walk:
+                nextBehavior = new WalkBehavior();
+                break;
+            //case PetState.Chase:
+            default:
+                nextBehavior = ChaseRandomTarget();
+                break;
+        }
+
+        LeanTween.delayedCall(delayTime, () => ChangeBehavior(nextBehavior));
+    }
+
+    private PetBehavior ChaseRandomTarget()
+    {
+        var randTargetIndex = Random.Range(0, biteables.Count);
+        chaseTarget = biteables[randTargetIndex].gameObject;
+
+        return new ChaseBehavior();
     }
 
     public void FoodGenerated(GameObject food)
     {
-        chaseTarget = food;
+        foodsQueue.Enqueue(food);
+
+        chaseTarget = foodsQueue.Dequeue();
         ChangeBehavior(new ChaseBehavior());
     }
 

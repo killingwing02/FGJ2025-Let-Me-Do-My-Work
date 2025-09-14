@@ -31,6 +31,11 @@ public class PetController : MonoBehaviour
         LeanTween.delayedCall(5f, () => behaviorController.ChangeBehavior(new GetBonkBehavior()));
     }
 
+    public void FoodGenerated(GameObject food)
+    {
+        behaviorController.FoodGenerated(food);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // TODO: Check if get hit by puzzle pieces, then change behavior to angery

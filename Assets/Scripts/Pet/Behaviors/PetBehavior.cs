@@ -18,6 +18,11 @@ public abstract class PetBehavior
 
     }
 
+    public virtual bool CanTransition()
+    {
+        return true;
+    }
+
     public void OnBehaviorEnter(BehaviorController controller)
     {
         this.behaviorController = controller;
