@@ -104,6 +104,7 @@ public class BehaviorController : MonoBehaviour
 
     public void PetFacingWhenChasing()
     {
+        if (chaseTarget == null) return;
         FlipCheck(chaseTarget.transform.position.x);
     }
 
