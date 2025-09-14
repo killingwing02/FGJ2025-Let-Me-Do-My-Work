@@ -9,19 +9,29 @@ public class WinLose : MonoBehaviour
     public GameObject winUI;
     public GameObject loseUI;
 
+    public AudioClip result;
+    private AudioSource audioSource;
+
     private void Awake()
     {
         Instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Win()
     {
+        audioSource.clip = result;
+        audioSource.Play();
+
         winUI.SetActive(true);
         StartCoroutine(PauseAfterDelay(2f));
     }
 
     public void Lose()
     {
+        audioSource.clip = result;
+        audioSource.Play();
+
         loseUI.SetActive(true);
         StartCoroutine(PauseAfterDelay(2f));
     }
