@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
     {
         totalSec = (min * 60) + sec;
         StartCoroutine(CountDown());
+
     }
     IEnumerator CountDown()
     {
@@ -36,14 +37,11 @@ public class Timer : MonoBehaviour
                 sec = 0;
             }
         }
-        //update timer
-        time.text = string.Format("{0}:{1}", min.ToString("00"), sec.ToString("00"));
 
         if (PuzzleManager.Instance.snappedCount < PuzzleManager.Instance.totalPieces)
         {
             WinLose.Instance.Lose();
         }
-
         Time.timeScale = 0;
         
     }
