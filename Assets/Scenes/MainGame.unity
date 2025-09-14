@@ -795,7 +795,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263161872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -929,6 +929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winUI: {fileID: 263161872}
   loseUI: {fileID: 1252222934}
+  timerText: {fileID: 1481727912}
   result: {fileID: 8300000, guid: 2df8bb9b15da2ce4aa6ae8e8c11a9a3c, type: 3}
 --- !u!114 &357596750
 MonoBehaviour:
@@ -2533,8 +2534,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 107443510}
-  - {fileID: 263161875}
   - {fileID: 1252222935}
+  - {fileID: 263161875}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2723,7 +2724,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252222934}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4977,8 +4978,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 2039350170}
   - {fileID: 1482978644}
+  - {fileID: 1075616550}
   - {fileID: 718899035}
   - {fileID: 2013808463}
-  - {fileID: 1075616550}
   - {fileID: 357596743}
   - {fileID: 1101845889}

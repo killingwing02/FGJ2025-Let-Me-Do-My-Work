@@ -8,6 +8,7 @@ public class WinLose : MonoBehaviour
     public static WinLose Instance;
     public GameObject winUI;
     public GameObject loseUI;
+    public GameObject timerText;
 
     public AudioClip result;
     private AudioSource audioSource;
@@ -24,7 +25,9 @@ public class WinLose : MonoBehaviour
         audioSource.Play();
 
         winUI.SetActive(true);
+        timerText.SetActive(false);
         StartCoroutine(PauseAfterDelay(2f));
+        
     }
 
     public void Lose()
@@ -33,6 +36,7 @@ public class WinLose : MonoBehaviour
         audioSource.Play();
 
         loseUI.SetActive(true);
+        timerText.SetActive(false);
         StartCoroutine(PauseAfterDelay(2f));
     }
     IEnumerator PauseAfterDelay(float delay)
