@@ -11,10 +11,7 @@ public class Homework : MonoBehaviour
     [Header("Snap")]
     public bool isStuck = false;
     public bool canDrag = true;
-    void Start()
-    {
-        
-    }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (isStuck) return;

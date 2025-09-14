@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+public class LobbyManager : MonoBehaviour
+{
+    //public Button toMainScene;
+    //public Button toInstructions;
+    //public Button quitGame;
+
+    public GameObject instructions;
+
+    // Update is called once per frame
+    public void SwitchScenes()
+    {
+        SceneManager.LoadScene("MainGame");
+    }
+
+    public void PopInstructions()
+    {
+        instructions.SetActive(true);
+    }
+    
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+}
