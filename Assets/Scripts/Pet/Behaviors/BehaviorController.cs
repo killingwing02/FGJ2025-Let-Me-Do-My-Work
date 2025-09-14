@@ -91,6 +91,7 @@ public class BehaviorController : MonoBehaviour
             else
             {
                 Debug.LogWarning("Chasing target is not defined.");
+                ChangeBehavior(new IdleBehavior());
                 return;
             }
         }
@@ -151,7 +152,6 @@ public class BehaviorController : MonoBehaviour
         }
 
         float delayDuration = throwingDuration;
-        PetBehavior nextBehavior = new ThrowBehavior();
 
         if (chaseTarget.CompareTag("food"))
         {
@@ -166,6 +166,7 @@ public class BehaviorController : MonoBehaviour
         biteable.GotBite();
         Debug.Log($"{chaseTarget.name} got bite!");
 
+        PetBehavior nextBehavior = new ThrowBehavior();
         if (foodsQueue.Count > 0)
         {
             chaseTarget = foodsQueue.Dequeue();
@@ -177,11 +178,18 @@ public class BehaviorController : MonoBehaviour
 
     public void Throw()
     {
-        if (chaseTarget == null) return;
+        if (chaseTarget == null) ChangeBehavior(new IdleBehavior());
 
         chaseTarget.GetComponent<IBiteable>().ThrowAway();
         chaseTarget = null;
-        LeanTween.delayedCall(1f, () => ChangeBehavior(new IdleBehavior()));
+        StartCoroutine(DelayChange(1f));
+    }
+
+    IEnumerator DelayChange(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        ChangeBehavior(new IdleBehavior());
     }
 
     public void RandomNextMove()
