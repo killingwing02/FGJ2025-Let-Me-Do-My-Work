@@ -166,8 +166,16 @@ public class BehaviorController : MonoBehaviour
         biteable.GotBite();
         Debug.Log($"{chaseTarget.name} got bite!");
 
-        PetBehavior nextBehavior = new ThrowBehavior();
-        if (foodsQueue.Count > 0)
+        PetBehavior nextBehavior = new IdleBehavior();
+
+        if (chaseTarget != null)
+        {
+            if (chaseTarget.CompareTag("food"))
+                nextBehavior = new ChaseBehavior();
+            else
+                nextBehavior = new ThrowBehavior();
+        }
+        else if (foodsQueue.Count > 0)
         {
             chaseTarget = foodsQueue.Dequeue();
             nextBehavior = new ChaseBehavior();
