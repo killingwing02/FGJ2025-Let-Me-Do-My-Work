@@ -17,6 +17,7 @@ public class LobbyManager : MonoBehaviour
     // Update is called once per frame
     public void SwitchScenes()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainGame");
     }
 
