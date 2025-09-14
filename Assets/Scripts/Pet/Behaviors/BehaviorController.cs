@@ -14,7 +14,6 @@ public class BehaviorController : MonoBehaviour
     private float _speed;
 
     GameObject chaseTarget;
-    Vector2 targetPosition;
     Animator animator;
 
     #region Init
@@ -72,7 +71,7 @@ public class BehaviorController : MonoBehaviour
         {
             // TODO: Bite!
             Debug.Log($"Pet catched {chaseTarget.name}!");
-            ChangeBehavior(new BiteBehavior());
+            ChangeBehavior(new BiteBehavior(), false);
         }
     }
 
@@ -122,6 +121,12 @@ public class BehaviorController : MonoBehaviour
         var delayTime = Random.Range(nextMoveTime - nextMoveRandomThreshold, nextMoveTime + nextMoveRandomThreshold);
 
         LeanTween.delayedCall(delayTime, () => ChangeBehavior(new WalkBehavior()));
+    }
+
+    public void FoodGenerated(GameObject food)
+    {
+        chaseTarget = food;
+        ChangeBehavior(new ChaseBehavior());
     }
 
     public void PlayAnimation(string animationName)

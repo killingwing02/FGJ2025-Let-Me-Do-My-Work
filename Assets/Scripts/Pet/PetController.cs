@@ -8,8 +8,18 @@ public class PetController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] GameObject testTarget;
 
+    #region Singleton
+    public static PetController instance;
+    private void InitSingleton()
+    {
+        instance = this;
+    }
+    #endregion
+
     private void Awake()
     {
+        InitSingleton();
+
         behaviorController = GetComponent<BehaviorController>();
         behaviorController.Init(speed);
     }
@@ -34,6 +44,7 @@ public enum PetState
     Sleep = 1,
     Walk = 2,
     Chase = 3,
+    Eating = 4,
     GetBonk = 10,
     Bite = 11,
     Throw = 12,
