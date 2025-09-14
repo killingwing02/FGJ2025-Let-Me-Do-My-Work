@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Homework : MonoBehaviour
+public class Homework : MonoBehaviour,IBiteable
 {
     [Header("TargetRotate")]
     public Transform targetR;
@@ -71,4 +71,13 @@ public class Homework : MonoBehaviour
         transform.SetParent(target);
     }
 
+    public void GotBite()
+    {
+        
+    }
+
+    public void ThrowAway()
+    {
+        
+    }
 }
