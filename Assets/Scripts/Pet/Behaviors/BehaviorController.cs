@@ -137,6 +137,8 @@ public class BehaviorController : MonoBehaviour
 
     public void Bite()
     {
+        LeanTween.cancel(gameObject);
+
         var biteable = chaseTarget.GetComponent<IBiteable>();
         if (biteable == null)
         {
@@ -172,6 +174,8 @@ public class BehaviorController : MonoBehaviour
 
     public void Throw()
     {
+        if (chaseTarget == null) return;
+
         chaseTarget.GetComponent<IBiteable>().ThrowAway();
         chaseTarget = null;
         LeanTween.delayedCall(1f, () => ChangeBehavior(new IdleBehavior()));
@@ -179,6 +183,8 @@ public class BehaviorController : MonoBehaviour
 
     public void RandomNextMove()
     {
+        if (chaseTarget != null && chaseTarget.CompareTag("food")) ChangeBehavior(new ChaseBehavior());
+
         var nextMoveIndex = Random.Range(0, 4);
         var delayTime = Random.Range(nextMoveTime - nextMoveRandomThreshold, nextMoveTime + nextMoveRandomThreshold);
         PetBehavior nextBehavior = new IdleBehavior();
@@ -199,6 +205,8 @@ public class BehaviorController : MonoBehaviour
 
     private PetBehavior ChaseRandomTarget()
     {
+        if (biteables.Count == 0) return new IdleBehavior();
+
         var randTargetIndex = Random.Range(0, biteables.Count);
         chaseTarget = biteables[randTargetIndex].gameObject;
 
@@ -209,8 +217,11 @@ public class BehaviorController : MonoBehaviour
     {
         foodsQueue.Enqueue(food);
 
-        chaseTarget = foodsQueue.Dequeue();
-        ChangeBehavior(new ChaseBehavior());
+        if (chaseTarget == null || !chaseTarget.CompareTag("food"))
+        {
+            chaseTarget = foodsQueue.Dequeue();
+            ChangeBehavior(new ChaseBehavior());
+        }
     }
 
     public void PlayAnimation(string animationName)

@@ -25,6 +25,7 @@ public class FoodGenerate : MonoBehaviour
         {
             Vector3 spawnPos = GetRandomPositionInArea();
             GameObject food = Instantiate(GetRandomFood(), spawnPos, Quaternion.identity);
+            PetController.instance.FoodGenerated(food);
 
             // 丟出：加力往上
             Rigidbody2D rb = food.GetComponent<Rigidbody2D>();
