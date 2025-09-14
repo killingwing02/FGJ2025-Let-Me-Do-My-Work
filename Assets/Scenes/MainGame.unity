@@ -940,11 +940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodPrefabs:
-  - {fileID: 7393321727804483176, guid: 32ee2f2ee75dcc94d8e8d7839a617214, type: 3}
-  - {fileID: 7393321727804483176, guid: 38c99b84619d79444aba7057b587474a, type: 3}
-  - {fileID: 7393321727804483176, guid: c2adbcfe236f6534a9d5cc59f65cc046, type: 3}
-  - {fileID: 7393321727804483176, guid: bf009e6cbdd13784aa2490a1835db672, type: 3}
-  foodCount: 3
+  - {fileID: 3080329871188644340, guid: 7784f4ed4b3118a41bde83c58f0e7f3e, type: 3}
+  foodCount: 1
   left: {fileID: 405359183}
   right: {fileID: 1037082001}
   throwForce: 400

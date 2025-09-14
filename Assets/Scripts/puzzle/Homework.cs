@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Homework : MonoBehaviour
+public class Homework : MonoBehaviour,IBiteable
 {
     [Header("TargetRotate")]
     public Transform targetR;
@@ -11,10 +11,7 @@ public class Homework : MonoBehaviour
     [Header("Snap")]
     public bool isStuck = false;
     public bool canDrag = true;
-    void Start()
-    {
-        
-    }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (isStuck) return;
@@ -74,4 +71,13 @@ public class Homework : MonoBehaviour
         transform.SetParent(target);
     }
 
+    public void GotBite()
+    {
+        
+    }
+
+    public void ThrowAway()
+    {
+        
+    }
 }
