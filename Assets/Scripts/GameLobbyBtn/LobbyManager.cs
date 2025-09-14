@@ -11,6 +11,8 @@ public class LobbyManager : MonoBehaviour
     //public Button quitGame;
 
     public GameObject instructions;
+    public AudioSource audioSource;
+    public Button back;
 
     // Update is called once per frame
     public void SwitchScenes()
@@ -21,6 +23,11 @@ public class LobbyManager : MonoBehaviour
     public void PopInstructions()
     {
         instructions.SetActive(true);
+    }
+
+    public void QuitMovie()
+    {
+        instructions.SetActive(false);
     }
     
     public void QuitGame()
