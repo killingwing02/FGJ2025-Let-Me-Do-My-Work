@@ -6,7 +6,7 @@ public class GetBonkBehavior : PetBehavior
     {
         base.OnEnter();
 
-        LeanTween.delayedCall(2f, () => behaviorController.PlayAnimation("Angry"));
-        LeanTween.delayedCall(5f, () => behaviorController.ChangeBehavior(new IdleBehavior()));
+        LeanTween.delayedCall(behaviorController.gameObject, 2f, () => behaviorController.PlayAnimation("Angry"));
+        LeanTween.delayedCall(behaviorController.gameObject, 5f, () => behaviorController.ChangeBehavior(new IdleBehavior()));
     }
 }

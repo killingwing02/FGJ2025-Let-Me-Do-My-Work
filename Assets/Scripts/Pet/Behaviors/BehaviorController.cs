@@ -62,17 +62,7 @@ public class BehaviorController : MonoBehaviour
 
     public void ChangeBehavior(PetBehavior newBehavior, bool playAnimation = true)
     {
-        //if (currentBehavior != null & !currentBehavior.CanTransition())
-        //{
-        //    behaviorsQueue.Enqueue(newBehavior);
-        //    return;
-        //}
-
-        //if (behaviorsQueue.Count > 0)
-        //{
-
-        //}
-
+        Debug.Log($"<color=#888888FF>Changing behavior to \"{newBehavior.ToString()}\"</color>");
         currentBehavior?.OnBehaviorExit();
         currentBehavior = newBehavior;
         currentBehavior.OnBehaviorEnter(this);
@@ -90,8 +80,15 @@ public class BehaviorController : MonoBehaviour
     {
         if (chaseTarget == null)
         {
-            Debug.LogWarning("Chasing target is not defined.");
-            return;
+            if (foodsQueue.Count > 0)
+            {
+                chaseTarget = foodsQueue.Dequeue();
+            }
+            else
+            {
+                Debug.LogWarning("Chasing target is not defined.");
+                return;
+            }
         }
 
         // Moving forward to the target
@@ -132,7 +129,7 @@ public class BehaviorController : MonoBehaviour
         else
             toY = 0f;
 
-        LeanTween.rotateY(gameObject, toY, .3f);
+        LeanTween.rotateY(gameObject, toY, .1f);
     }
 
     public void Bite()
@@ -200,7 +197,12 @@ public class BehaviorController : MonoBehaviour
                 break;
         }
 
-        LeanTween.delayedCall(delayTime, () => ChangeBehavior(nextBehavior));
+        Debug.Log($"<color=#FFAAAAFF>Random move triggered. Delay time: {delayTime}.</color>");
+        LeanTween.delayedCall(delayTime, () =>
+        {
+            ChangeBehavior(nextBehavior);
+            Debug.Log("<color=#FFAAAAFF>Delayed Random Next Move triggered.</color>");
+        });
     }
 
     private PetBehavior ChaseRandomTarget()
