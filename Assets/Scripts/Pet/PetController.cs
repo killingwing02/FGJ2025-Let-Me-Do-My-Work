@@ -28,7 +28,7 @@ public class PetController : MonoBehaviour
     {
         // behaviorController.SetChasingTarget(testTarget);
         behaviorController.ChangeBehavior(new SleepBehavior());
-        LeanTween.delayedCall(gameObject, 5f, () => behaviorController.ChangeBehavior(new GetBonkBehavior()));
+        LeanTween.delayedCall(gameObject, 1f, () => behaviorController.ChangeBehavior(new GetBonkBehavior()));
     }
 
     public void FoodGenerated(GameObject food)

@@ -21,6 +21,11 @@ public class PuzzleManager : MonoBehaviour
         CheckWinCondition();
     }
 
+    public void PieceUnSnapped()
+    {
+        snappedCount--;
+    }
+
     public void CheckWinCondition()
     {
         if (snappedCount >= totalPieces)

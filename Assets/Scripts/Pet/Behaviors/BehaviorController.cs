@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class BehaviorController : MonoBehaviour
 {
+    public static BehaviorController instance;
+
     [Header("Moving Settings")]
     [SerializeField] float gotTargetDistance;
     [SerializeField] float nextMoveTime;
@@ -39,11 +41,13 @@ public class BehaviorController : MonoBehaviour
         foodsQueue = new Queue<GameObject>();
         //behaviorsQueue = new Queue<PetBehavior>();
         biteables = new List<IBiteable>();
+
+        instance = this;
     }
 
     private void Start()
     {
-        biteables = FindObjectsOfType<MonoBehaviour>().OfType<IBiteable>().ToList();
+        //biteables = FindObjectsOfType<MonoBehaviour>().OfType<IBiteable>().ToList();
     }
     #endregion
 
@@ -98,6 +102,7 @@ public class BehaviorController : MonoBehaviour
         {
             // TODO: Bite!
             Debug.Log($"Pet catched {chaseTarget.name}!");
+            PlayAnimation("Bite");
             ChangeBehavior(new BiteBehavior(), false);
         }
     }
@@ -233,4 +238,11 @@ public class BehaviorController : MonoBehaviour
     }
 
     #endregion
+
+    public void AddBiteable(GameObject biteable)
+    {
+        var _bite = biteable.GetComponent<IBiteable>();
+        if (_bite == null) return;
+        biteables.Add(_bite);
+    }
 }
